@@ -55,10 +55,9 @@ func request[T any](c *Client, path string, params []queryParam) (*T, error) {
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
 
-	// 1. Set Auth Header
 	req.Header.Set("X-Developer-API-Key", c.apiKey)
 
-	// 2. Override the default Go User-Agent to bypass automated 403 firewall blocks
+	// 100% sure i dont need this req header, but for some fucking reason it doesn't work without it.....
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
 	if len(params) > 0 {
